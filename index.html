@@ -1,0 +1,851 @@
+        // Pricing card selection
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelector('#kapcsolat').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="raptor-icon.png">
+    <link rel="apple-touch-icon" href="raptor-icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-orange: #F5A70F;
+            --primary-blue: #1693C5;
+            --dark-bg: #1a1a1a;
+            --light-gray: #f8f9fa;
+            --dark-gray: #2c2c2c;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .cta-btn {
+            background: var(--primary-orange);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background: #e09700;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-orange) 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(22, 147, 197, 0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 80px 0;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            height: 250px;
+        }
+
+        .portfolio-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(22, 147, 197, 0.9), rgba(245, 167, 15, 0.9));
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+
+        .testimonial p {
+            margin-bottom: 1rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 80px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-orange);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(245, 167, 15, 0.2);
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .pricing-card.selected {
+            border-color: var(--primary-orange);
+            box-shadow: 0 15px 40px rgba(245, 167, 15, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .price-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .price-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 80px 0;
+            background: var(--dark-bg);
+            color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+        }
+
+        .contact-info h3 {
+            color: var(--primary-orange);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .testimonial-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <img src="Raptor's soft.png" alt="Raptor's Soft">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+                <li><a href="#portfolio">Miben segítek</a></li>
+                <li><a href="#kapcsolat">Kapcsolat</a></li>
+            </ul>
+            <a href="#kapcsolat" class="cta-btn">Ingyenes Konzultáció</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Modern weboldalak kezdő vállalkozásoknak</h1>
+            <p class="subtitle">
+                Friss szemlélettel és modern technológiákkal készítek professzionális weboldalakat generálkivitelező cégek, éttermek és magánorvosi praxisok számára. Fiatalos megközelítés, kedvező árak.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">2025</span>
+                    <span class="stat-label">Legfrissebb technológiák</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">30</span>
+                    <span class="stat-label">Nap alatt kész</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50%</span>
+                    <span class="stat-label">Kedvezőbb árak</span>
+                </div>
+            </div>
+            <a href="#kapcsolat" class="cta-btn">Kérj Ingyenes Ajánlatot</a>
+        </div>
+    </section>
+
+    <section class="services" id="szolgaltatasok">
+        <div class="container">
+            <h2 class="section-title fade-in">Szolgáltatásaink</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎯</div>
+                    <h3>Konverzióra Optimalizált Weboldalak</h3>
+                    <p>Olyan weboldalakat készítünk, amelyek nem csak szépek, hanem hatékonyan alakítják át a látogatókat ügyfelekké. Minden elem a konverzió maximalizálására van hangolva.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🛒</div>
+                    <h3>Professzionális Webshopok</h3>
+                    <p>Felhasználóbarát és eladásra optimalizált online áruházak készítése. Integrált fizetési rendszerekkel és készletkezeléssel.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🤖</div>
+                    <h3>Marketing Automatizálás</h3>
+                    <p>Automatikus ügyfélszerzési rendszerek kiépítése. Email kampányok, lead nurturing és értékesítési folyamatok automatizálása a maximális hatékonyság érdekében.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">📊</div>
+                    <h3>Teljesítmény Követés és Optimalizálás</h3>
+                    <p>Részletes analitikák és jelentések, folyamatos A/B tesztelés és optimalizálás a legjobb eredmények elérése érdekében.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">📱</div>
+                    <h3>Mobil-Optimalizált Megoldások</h3>
+                    <p>Minden weboldal tökéletesen működik mobilon is, hiszen ügyfeleid 70%-a mobilról böngészik.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">⚡</div>
+                    <h3>Gyors Betöltési Sebesség</h3>
+                    <p>Optimalizált kódolás és modern technológiák használata a villámgyors betöltési sebességért, ami javítja a keresőoptimalizálást és a felhasználói élményt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title fade-in">Miben tudok segíteni?</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-placeholder">
+                        <div style="color: var(--primary-blue); font-size: 2rem; margin-bottom: 1rem;">🏗️</div>
+                        <div>Építőipari Cégek</div>
+                    </div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4>Generálkivitelező Weboldalak</h4>
+                            <p>Bemutatkozás, szolgáltatások, referencia galéria, kapcsolat</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-placeholder">
+                        <div style="color: var(--primary-orange); font-size: 2rem; margin-bottom: 1rem;">🍽️</div>
+                        <div>Éttermek</div>
+                    </div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4>Éttermi Weboldalak</h4>
+                            <p>Menü bemutatás, foglalási rendszer, elérhetőségek</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-placeholder">
+                        <div style="color: var(--primary-blue); font-size: 2rem; margin-bottom: 1rem;">👨‍⚕️</div>
+                        <div>Magánorvosi Praxisok</div>
+                    </div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4>Orvosi Praxis Weboldalak</h4>
+                            <p>Időpontfoglalás, szolgáltatások, szakmai bemutatkozás</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title fade-in">Miért válassz engem?</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial fade-in">
+                    <p>Friss szemlélet és modern technológiák használata. Mivel most kezdem, minden projektet maximális odafigyeléssel és lelkesedéssel végzek. A legújabb trendeket és módszereket alkalmazom.</p>
+                    <div class="testimonial-author">- Személyes elköteleződés minden projekt iránt</div>
+                </div>
+                <div class="testimonial fade-in">
+                    <p>Kedvező árazás és rugalmas együttműködés. Hiszek abban, hogy a minőségi weboldal nem luxus, hanem minden vállalkozás számára elérhető kell legyen. Hosszútávú partneri kapcsolatokra törekszem.</p>
+                    <div class="testimonial-author">- Versenyképes árak, egyedi megoldások</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="kapcsolat">
+        <div class="container">
+            <h2 class="section-title fade-in">Beszéljük meg projektedet!</h2>
+            <div class="contact-content">
+                <form class="contact-form fade-in" id="contactForm" action="https://formspree.io/f/movnqqjr" method="POST" >
+                    <div class="form-group">
+                        <label for="name">Név *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Cégnév</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Milyen szolgáltatás érdekel?</label>
+                        <select id="service" name="service">
+                            <option value="">Válassz egyet</option>
+                            <option value="weboldal">Bemutatkozó weboldal</option>
+                            <option value="webshop">Webshop</option>
+                            <option value="automation">Marketing automatizálás</option>
+                            <option value="optimization">Weboldal optimalizálás</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Üzenet</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Meséld el a projekted részleteit..."></textarea>
+                    </div>
+                    <button type="submit" class="cta-btn">Küldés</button>
+                </form>
+                
+                <div class="contact-info fade-in">
+                    <h3>Lépj kapcsolatba velünk</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div>
+                                <strong>Telefon</strong><br>
+                                +36 70 XXX XXXX
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">✉️</div>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@raptorssoft.hu
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">⏰</div>
+                            <div>
+                                <strong>Elérhetőség</strong><br>
+                                Rugalmas időbeosztás
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🎯</div>
+                            <div>
+                                <strong>Szakterület</strong><br>
+                                Építőipar, Vendéglátás, Egészségügy
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: var(--primary-orange); margin-bottom: 1rem;">Miért válassz engem?</h4>
+                        <ul style="list-style: none;">
+                            <li>✅ Friss technológiai ismeretek</li>
+                            <li>✅ Kedvező, versenyképes árak</li>
+                            <li>✅ Személyes odafigyelés minden projekthez</li>
+                            <li>✅ Ingyenes konzultáció és árajánlat</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Raptor's Soft. Minden jog fenntartva.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            if (!name || !email) {
+                alert('Kérjük töltsd ki a kötelező mezőket!');
+                return;
+            }
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Küldés...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Köszönjük az üzeneted! Hamarosan jelentkezünk.');
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+
+        // Pricing card selection
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                document.querySelector('#kapcsolat').scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                const serviceSelect = document.getElementById('service');
+                const cardTitle = this.querySelector('h3').textContent.toLowerCase();
+                
+                if (cardTitle.includes('alap')) {
+                    serviceSelect.value = 'weboldal';
+                } else if (cardTitle.includes('e-commerce')) {
+                    serviceSelect.value = 'webshop';
+                } else {
+                    serviceSelect.value = 'automation';
+                }
+            });
+        });
+
+        // Portfolio item interactions
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const overlay = this.querySelector('.portfolio-overlay');
+                const title = overlay.querySelector('h4').textContent;
+                alert(`Portfolio részletek: ${title}\n\nVálassz a szolgáltatások közül vagy vedd fel velünk a kapcsolatot további információkért!`);
+            });
+        });
+
+        // Dynamic stats counter animation
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            const targets = [2025, 30, 50];
+            
+            stats.forEach((stat, index) => {
+                let current = 0;
+                const target = targets[index];
+                const increment = target / 50;
+                const suffix = index === 2 ? '%' : '';
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target + suffix;
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current) + suffix;
+                    }
+                }, 30);
+            });
+        }
+
+        // Trigger stats animation when hero section is visible
+        const heroSection = document.querySelector('.hero');
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        heroObserver.observe(heroSection);
+    </script>
+</body>
+</html>
